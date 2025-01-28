@@ -1,0 +1,48 @@
+#organization {
+    background-color: bisque;
+    display: block;
+    text-align: center;
+    color: green;
+}
+
+.year-range {
+    border-left-width: 6px;
+    border-left-color: red;
+    border-left-style: solid;
+}
+
+p::first-letter {
+    font-size: 35px;
+    color: blue;
+}
+
+P:hover {
+    font-size: 26px;
+    color: red;
+}
+
+.heading {
+    color: #0D3D56 !important;
+}
+
+a:link {
+    color: blueviolet;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: red;
+}
+
+a:visited {
+    color: gray;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: blue;
+}
+
+li a{
+    background-color: aquamarine;
+}
+
+p {
+    text-indent: 40px;
+}
