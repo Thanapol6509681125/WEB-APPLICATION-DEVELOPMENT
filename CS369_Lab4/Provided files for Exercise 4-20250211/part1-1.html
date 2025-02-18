@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<title>Simple JS</title>
+</head>
+<body>
+<div id="target"></div>
+<script>
+window.onload = function() {
+   var target = document.getElementById("target");
+   hello(target);
+}
+
+function hello(target) {
+   // prompt for name
+   var name = window.prompt("Your name?")
+   if (!name || name.length == 0) name = "Unknown";
+   var msg = "Hello: " + name  + "<br>\n \
+                         Nice to meet you." 
+   if (!target) 
+       alert(msg);
+   else target.innerHTML = msg;
+}
+</script>
+</body>
+</html>

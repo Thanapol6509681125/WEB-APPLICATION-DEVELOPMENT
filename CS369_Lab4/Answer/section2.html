@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Simple JS</title>
+   </head>
+
+   <body>
+      <div id="target"></div>
+      <script>
+         // Wait for web page to load 
+         window.onload = function() {
+            getPersonInfo();
+         }
+
+         // Function to filter persons with age above the average
+         const filterOnlyAboveAverageAge = (persons) => {
+            const averageAge = persons.reduce((sum, person) => sum + Number(person.age), 0) / persons.length;
+            return persons.filter(person => person.age > averageAge);
+         };
+
+         // Function to get short names
+         const shortNames = (personsArray) => {
+            return personsArray.map(person => {
+               let name = person.name; // Fixed 'Name' to 'name'
+               if (name.length >= 2) {
+                  return name[0] + "." + name[name.length - 1] + ".";
+               } else {
+                  return name + ".";
+               }
+            });
+         };
+
+         // Prompt for person name and age
+         const getPersonInfo = () => {
+            var persons = [];
+            while (true) {
+               // Stop prompting for person name and age
+               var personInput = window.prompt("Enter your name and age. (Ex. John 20): ");
+               if (personInput === "Stop" || personInput === "End") {
+                  alert("Finished Receiving Information!!");
+                  break;
+               }
+               
+               // Check for valid input
+               let validInput = personInput.split(" ");
+               if (validInput.length !== 2 || !validInput[0].match(/^[A-Za-z]+$/) || isNaN(validInput[1])) {
+                  alert("You entered invalid input. Please enter in the format (John 20). ");
+                  continue;
+               }
+
+               // Add valid input to list
+               let [nameInput, ageInput] = validInput;
+               persons.push({name: nameInput, age: Number(ageInput)});
+            }
+            
+            showList(persons);
+         }
+
+         // Show ordered list for person array
+         const showList = (personsArray) => {
+            var target = document.getElementById("target");
+            
+            // Display label for header of person list
+            var headerLabel = document.createElement("h3");
+            headerLabel.textContent = "Person Information List";
+            target.appendChild(headerLabel);
+
+            // Display person list
+            var personList = document.createElement("ol");
+            personsArray.forEach(person => {
+               var eachPerson = document.createElement("li");
+               eachPerson.textContent = "Name: " + person.name + ", Age: " + person.age;
+               personList.appendChild(eachPerson);
+            });
+            target.appendChild(personList);
+
+            // Show persons above average age
+            var aboveAveragePersons = filterOnlyAboveAverageAge(personsArray);
+            if (aboveAveragePersons.length > 0) {
+               var aboveLabel = document.createElement("h3");
+               aboveLabel.textContent = "People Above Average Age:";
+               target.appendChild(aboveLabel);
+               
+               var aboveList = document.createElement("ul");
+               aboveAveragePersons.forEach(person => {
+                  var item = document.createElement("li");
+                  item.textContent = "Name: " + person.name + ", Age: " + person.age;
+                  aboveList.appendChild(item);
+               });
+               target.appendChild(aboveList);
+            }
+
+            // Show short names
+            var shortNamesList = shortNames(personsArray);
+            var shortLabel = document.createElement("h3");
+            shortLabel.textContent = "Short Names:";
+            target.appendChild(shortLabel);
+
+            var shortList = document.createElement("ul");
+            shortNamesList.forEach(name => {
+               var nameItem = document.createElement("li");
+               nameItem.textContent = name;
+               shortList.appendChild(nameItem);
+            });
+            target.appendChild(shortList);
+         }
+      </script>
+   </body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<title>Simple JS</title>
+</head>
+<body>
+<div id="target"></div>
+<script>
+
+let nameList = [];
+let ageList = [];
+let maxAge = 0;
+let minAge = Number.MAX_SAFE_INTEGER;
+
+function addToCollection(value){
+   const info = value.split(' ');
+   nameList.push(info[0]);
+   ageList.push(info[1]);
+}
+
+function showInfo(){
+   let result = '<table border="1"><tr><th>Index</th><th>Name</th><th>Age</th></tr>';
+   var acc = 0;
+
+   for(let i=0; i<nameList.length; i++){
+      result += '<tr><td>' + (i+1) + '</td><td>' + nameList[i] + '</td><td>' + ageList[i] + '</td></tr>';
+      acc += parseInt(ageList[i]);
+
+      if(parseInt(ageList[i]) > maxAge){
+         maxAge = parseInt(ageList[i]);
+      }
+
+      if(parseInt(ageList[i]) < minAge){
+         minAge = parseInt(ageList[i]);
+      }
+   }
+   result += '</table>';
+   result += '<p>Average age: ' + (acc/nameList.length) + '</p>';
+   result += '<p>Max age: ' + maxAge + '</p>';
+   result += '<p>Min age: ' + minAge + '</p>';
+   document.getElementById("target").innerHTML = result;
+}
+
+window.onload = function() {
+   var target = document.getElementById("target");
+   hello(target);
+}
+
+function hello(target) {
+   var status = true; 
+   do{
+      var value = window.prompt("Your name?");
+      if(value=='Stop' || value=='End'){
+         status = false;
+      }else{
+         addToCollection(value);
+      }
+   }while(status);
+   showInfo();
+}
+</script>
+</body>
+</html>
