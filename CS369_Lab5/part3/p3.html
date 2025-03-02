@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>ร้านขายเครื่องดื่ม บร.2</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+      font-family: 'Kanit', sans-serif;
+      background-color: #f5f1eb;
+      }
+      
+      .cafe-header {
+      text-align: center;
+      font-family: 'Pacifico', cursive;
+      margin: 20px 0;
+      color: #8B4513;
+      }
+
+      .section-container {
+      background: #fff;
+      padding: 30px;
+      margin: 20px auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+      max-width: 1200px;
+      }
+
+      .section-title {
+      color: #654321;
+      border-bottom: 2px solid #DEB887;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+      }
+
+      .menu-popular {
+      background: #fff9f2;
+      }
+
+      .search-container {
+      text-align: center;
+      margin: 20px 0;
+      }
+
+      .search-bar {
+      width: 50%;
+      padding: 10px;
+      border-radius: 20px;
+      border: 2px solid #DEB887;
+      background-color: #fff;
+      }
+
+      .top-drinks {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 15px;
+      margin: 40px auto;
+      padding-top: 30px;
+      max-width: 800px;
+      }
+
+      .top-card {
+      width: 180px;
+      transition: transform 0.2s;
+      position: relative;
+      }
+
+      .first-place {
+      transform: translateY(-20px);
+      }
+
+      .second-place {
+      transform: translateY(-10px);
+      }
+
+      .top-card img:not(.medal) {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      }
+
+      .top-card h3 {
+      font-size: 1.1rem;
+      margin: 8px 0;
+      }
+
+      .top-card p {
+      font-size: 0.85rem;
+      margin: 4px 0;
+      }
+
+      .medal-gold {
+      width: 40px;
+      height: 40px;
+      }
+
+      .medal-silver {
+      width: 35px;
+      height: 35px;
+      }
+
+      .medal-bronze {
+      width: 30px;
+      height: 30px;
+      }
+
+      .drink-card {
+      width: 180px;
+      padding: 12px;
+      margin: 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      background: #fff;
+      border: 1px solid #DEB887;
+      transition: transform 0.2s;
+      position: relative;
+      }
+
+      .drink-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(139, 69, 19, 0.15);
+      }
+
+      .medal {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 40px;
+      height: 40px;
+      }
+
+      .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px 10px;
+      padding: 20px;
+      max-width: 850px;
+      margin: 0 auto;
+      }
+
+      @media (max-width: 1200px) {
+      .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px 10px;
+      }
+      }
+
+      @media (max-width: 768px) {
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px 10px;
+      }
+      }
+
+      @media (max-width: 480px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 20px 0;
+      }
+      }
+
+      .basket-count {
+      font-size: 1.2rem;
+      font-weight: bold;
+      }
+
+      .basket-label {
+      font-size: 0.8rem;
+      position: absolute;
+      bottom: -25px;
+      white-space: nowrap;
+      color: #8B4513;
+      }
+
+      .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+}
+
+.modal-content {
+    background: #fff9f2;
+    border: 2px solid #DEB887;
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    margin: 50px auto;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#confirmModal {
+    z-index: 2100;  /* Higher than sweetnessModal */
+}
+
+#sweetnessModal {
+    z-index: 2000;
+}
+
+      
+.basket {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    background: #8B4513;
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1999;  /* Lower than modals */
+}
+            
+
+
+      .modal-header {
+      color: #8B4513;
+      border-bottom: 2px solid #DEB887;
+      }
+
+      .temperature-options {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      }
+
+      .temperature-btn {
+      background: #fff;
+      border: 2px solid #8B4513;
+      color: #8B4513;
+      padding: 5px 15px;
+      border-radius: 20px;
+      }
+
+      .temperature-btn.active {
+      background: #8B4513;
+      color: white;
+      }
+
+      .order-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+      padding: 10px;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #DEB887;
+      }
+
+      .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      }
+
+      .quantity-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      background: #8B4513;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      }
+
+      .quantity-btn:hover {
+      background: #654321;
+      }
+
+      .quantity-number {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #8B4513;
+      }
+
+      .btn-group .btn {
+      padding: 0.5rem 0.25rem;
+      font-size: 0.9rem;
+      line-height: 1.2;
+      }
+
+      .btn-primary {
+      background-color: #8B4513;
+      border-color: #8B4513;
+      }
+
+      .btn-primary:hover {
+      background-color: #654321;
+      border-color: #654321;
+      }
+
+      .btn-outline-primary:hover {
+      background-color: #0d6efd20;
+      color: #0d6efd;
+      }
+
+      .btn-check:checked + .btn-outline-primary {
+      background-color: #0d6efd;
+      color: white;
+      }
+    </style>
+</head>
+<body>
+    <h1 class="cafe-header">ร้านขายเครื่องดื่ม บร.2</h1>
+    
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="ค้นหาเครื่องดื่ม...">
+    </div>
+
+    <div class="section-container menu-popular">
+      <h2 class="section-title">เมนูยอดฮิตประจำเดือน</h2>
+      <div class="top-drinks">
+        <div class="drink-card top-card second-place">
+            <img src="image/medal-silver.png" class="medal medal-silver">
+            <img src="image/กาแฟ.jfif" alt="กาแฟ" style="width: 100%;">
+            <h3>กาแฟ</h3>
+            <p>ยอดขาย: 120 แก้ว</p>
+            <p>ราคา: 40 บาท</p>
+            <p>กาแฟหอมกรุ่น จากเมล็ดกาแฟอาราบิกา</p>
+        </div>
+        <div class="drink-card top-card first-place">
+            <img src="image/medal-gold.png" class="medal medal-gold">
+            <img src="image/ชานม.jfif" alt="ชานมไข่มุก" style="width: 100%">
+            <h3>ชานมไข่มุก</h3>
+            <p>ยอดขาย: 150 แก้ว</p>
+            <p>ราคา: 45 บาท</p>
+            <p>รสชาติหอมนุ่ม ไข่มุกเหนียวนุ่ม</p>
+        </div>
+        <div class="drink-card top-card third-place">
+            <img src="image/medal-bronze.png" class="medal medal-bronze">
+            <img src="image/ชาเขียว.jfif" alt="ชาเขียว" style="width: 100%">
+            <h3>ชาเขียว</h3>
+            <p>ยอดขาย: 100 แก้ว</p>
+            <p>ราคา: 45 บาท</p>
+            <p>ชาเขียวมัทฉะแท้ จากแดนปลาดิบ</p>
+        </div>
+    </div>
+
+    <div class="section-container">
+      <h2 class="section-title">เมนูทั้งหมด</h2>
+      <div class="menu-grid" id="menuGrid">
+        <!-- Dynamic content will be inserted here by JavaScript -->
+    </div>
+    </div>
+    
+    <div class="basket">
+      <div class="basket-count">0</div>
+      <div class="basket-label">ตะกร้า</div>
+  </div>
+
+        <!-- Modal templates -->
+        <div id="sweetnessModal" class="modal">
+          <div class="modal-content">
+              <h3 class="modal-header p-3">ปรับแต่งเครื่องดื่ม</h3>
+              <div class="p-3">
+                  <p>เครื่องดื่ม: <span id="selectedDrink"></span></p>
+                  
+                  <div class="temperature-options">
+                      <button class="temperature-btn" data-temp="hot">ร้อน</button>
+                      <button class="temperature-btn" data-temp="cold">เย็น</button>
+                      <button class="temperature-btn" data-temp="frappe">ปั่น</button>
+                  </div>
+                  <div class="form-group">
+                    <label class="d-block mb-2">ระดับความหวาน:</label>
+                <div class="btn-group w-100" role="group" aria-label="Sweetness Level">
+                    <input type="radio" class="btn-check" name="sweetness" id="sweet0" value="0" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="sweet0">0%<br>ไม่หวาน</label>
+            
+                    <input type="radio" class="btn-check" name="sweetness" id="sweet25" value="25" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="sweet25">25%<br>หวานน้อย</label>
+            
+                    <input type="radio" class="btn-check" name="sweetness" id="sweet50" value="50" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="sweet50">50%<br>หวานปานกลาง</label>
+            
+                    <input type="radio" class="btn-check" name="sweetness" id="sweet75" value="75" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="sweet75">75%<br>หวานมาก</label>
+            
+                    <input type="radio" class="btn-check" name="sweetness" id="sweet100" value="100" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="sweet100">100%<br>หวานปกติ</label>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button onclick="addToBasket()" class="btn btn-success">ยืนยัน</button>
+                <button onclick="closeModal('sweetnessModal')" class="btn btn-secondary">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal">
+      <div class="modal-content">
+          <h3 class="modal-header p-3">ยืนยันการสั่งซื้อ</h3>
+          <div class="p-3">
+              <div id="orderSummary"></div>
+              <div class="mt-3">
+                  <button onclick="confirmOrder()" class="btn btn-primary">ยืนยันการสั่งซื้อ</button>
+                  <button onclick="closeModal('confirmModal')" class="btn btn-outline-secondary">ยกเลิก</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <script>
+      // Drink menu data
+      const drinks = [
+      { name: 'กาแฟ', price: 35, image: 'image/กาแฟ.jfif' },
+      { name: 'ชาเขียว', price: 40, image: 'image/ชาเขียว.jfif' }, 
+      { name: 'ชานมไข่มุก', price: 45, image: 'image/ชานม.jfif' },
+      { name: 'น้ำผลไม้', price: 40, image: 'image/น้ำผลไม้.jpg' },
+      { name: 'น้ำเปล่า', price: 15, image: 'image/น้ำเปล่า.jpg' },
+      { name: 'น้ำมะนาวโซดา', price: 35, image: 'image/มะนาวโซดา.jpg' },
+      { name: 'น้ำอัดลม', price: 25, image: 'image/น้ำอัดลม.jfif' },
+      { name: 'ช็อกโกแลตร้อน', price: 45, image: 'image/ช็อกร้อน.jpg' },
+      { name: 'สมูทตี้', price: 50, image: 'image/สมูทตี้.jpg' },
+      { name: 'มิลค์เชค', price: 55, image: 'image/มิลค์เชค.jfif' }
+      ];
+
+      let basketItems = [];
+      let currentDrink = '';
+
+      window.onload = function() {
+      initializeMenu();
+      initializeBasketAndModals();
+      };
+      
+      function initializeBasketAndModals() {
+    document.querySelector('.basket').addEventListener('click', function(event) {
+        event.stopPropagation();
+        if (basketItems.length > 0) {
+            localStorage.setItem('pendingOrders', JSON.stringify(basketItems));
+            window.location.href = 'allOrder.html';
+        } else {
+            alert('กรุณาเลือกเครื่องดื่มก่อนยืนยันการสั่งซื้อ');
+        }
+    });
+
+      document.querySelectorAll('.temperature-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+        document.querySelectorAll('.temperature-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        });
+      });
+      }
+
+      function initializeMenu() {
+      const menuGrid = document.getElementById('menuGrid');
+      drinks.forEach(drink => {
+        const drinkElement = createDrinkElement(drink);
+        menuGrid.appendChild(drinkElement);
+      });
+      }
+
+      function createDrinkElement(drink) {
+      const div = document.createElement('div');
+      div.className = 'drink-card';
+      div.innerHTML = `
+        <img src="${drink.image}" alt="${drink.name}" style="width: 100%">
+        <h3>${drink.name}</h3>
+        <p>ราคา: ${drink.price} บาท</p>
+        <button onclick="showSweetnessModal('${drink.name}')" class="btn btn-primary">สั่งซื้อ</button>
+      `;
+      return div;
+      }
+
+      document.querySelector('.search-bar').addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      const menuItems = document.querySelectorAll('.drink-card');
+      menuItems.forEach(item => {
+        const name = item.querySelector('h3').textContent.toLowerCase();
+        item.style.display = name.includes(searchTerm) ? '' : 'none';
+      });
+      });
+
+      function showSweetnessModal(drinkName) {
+      currentDrink = drinkName;
+      document.getElementById('selectedDrink').textContent = drinkName;
+      document.getElementById('sweetnessModal').style.display = 'block';
+      }
+      
+      function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.style.display = 'none';
+        if (modalId === 'sweetnessModal') {
+        document.querySelectorAll('.temperature-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('input[name="sweetness"]').forEach(input => input.checked = false);
+        }
+      }
+      }
+      
+      function addToBasket() {
+      const selectedSweetness = document.querySelector('input[name="sweetness"]:checked');
+      const selectedTemp = document.querySelector('.temperature-btn.active');
+      
+      if (!selectedSweetness || !selectedTemp) {
+        alert('กรุณาเลือกระดับความหวานและประเภทเครื่องดื่ม');
+        return;
+      }
+
+      const drink = drinks.find(d => d.name === currentDrink);
+      const existingItem = basketItems.find(item => 
+        item.name === currentDrink && 
+        item.sweetness === selectedSweetness.value && 
+        item.temperature === selectedTemp.dataset.temp
+      );
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        basketItems.push({
+        name: currentDrink,
+        price: drink.price,
+        sweetness: selectedSweetness.value,
+        temperature: selectedTemp.dataset.temp,
+        quantity: 1
+        });
+      }
+      
+      updateBasket();
+      closeModal('sweetnessModal');
+      }
+
+      function updateBasket() {
+      const basketCount = document.querySelector('.basket-count');
+      const totalItems = basketItems.reduce((sum, item) => sum + item.quantity, 0);
+      basketCount.textContent = totalItems;
+      }
+
+      function showConfirmModal() {
+      closeModal('sweetnessModal');
+      
+      const confirmModal = document.getElementById('confirmModal');
+      if (!confirmModal) return;
+      
+      if (basketItems.length === 0) {
+        alert('กรุณาเลือกเครื่องดื่มก่อนยืนยันการสั่งซื้อ');
+        return;
+      }
+      
+      const total = basketItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      document.getElementById('orderSummary').innerHTML = `
+        <div class="mb-3">
+        ${basketItems.map(item => `
+          <div class="order-item">
+          <span>• ${item.name} - ${translateTemp(item.temperature)} - ${item.sweetness}% ความหวาน</span>
+          <div class="quantity-control">
+            <button class="quantity-btn" type="button" onclick="updateQuantity('${item.name}', '${item.sweetness}', '${item.temperature}', -1)">-</button>
+            <span class="quantity-number">${item.quantity}</span>
+            <button class="quantity-btn" type="button" onclick="updateQuantity('${item.name}', '${item.sweetness}', '${item.temperature}', 1)">+</button>
+          </div>
+          <span>${item.price * item.quantity} บาท</span>
+          </div>
+        `).join('')}
+        <hr>
+        <h4 class="text-end">ราคารวม: ${total} บาท</h4>
+        </div>
+      `;
+      
+      confirmModal.style.display = 'block';
+      }
+
+      function updateQuantity(name, sweetness, temperature, change) {
+      const item = basketItems.find(item => 
+        item.name === name && 
+        String(item.sweetness) === String(sweetness) && 
+        item.temperature === temperature
+      );
+      
+      if (item) {
+        item.quantity = Math.max(0, item.quantity + change);
+        if (item.quantity === 0) {
+        basketItems = basketItems.filter(i => i !== item);
+        }
+        
+        const total = basketItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        document.getElementById('orderSummary').innerHTML = `
+        <div class="mb-3">
+          ${basketItems.map(item => `
+          <div class="order-item">
+            <span>• ${item.name} - ${translateTemp(item.temperature)} - ${item.sweetness}% ความหวาน</span>
+            <div class="quantity-control">
+            <button class="quantity-btn" type="button" onclick="updateQuantity('${item.name}', '${item.sweetness}', '${item.temperature}', -1)">-</button>
+            <span class="quantity-number">${item.quantity}</span>
+            <button class="quantity-btn" type="button" onclick="updateQuantity('${item.name}', '${item.sweetness}', '${item.temperature}', 1)">+</button>
+            </div>
+            <span>${item.price * item.quantity} บาท</span>
+          </div>
+          `).join('')}
+          <hr>
+          <h4 class="text-end">ราคารวม: ${total} บาท</h4>
+        </div>
+        `;
+        
+        if (basketItems.length === 0) {
+        closeModal('confirmModal');
+        }
+        
+        updateBasket();
+      }
+      }
+      
+      function translateTemp(temp) {
+      const translations = {
+        'hot': 'ร้อน',
+        'cold': 'เย็น',
+        'frappe': 'ปั่น'
+      };
+      return translations[temp] || temp;
+      }
+      
+      function confirmOrder() {
+      if (basketItems.length > 0) {
+        localStorage.setItem('cafeOrders', JSON.stringify(basketItems));
+        const currentPath = window.location.pathname;
+        const basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        const allOrderPath = basePath + '/allOrder.html';
+        window.location.href = allOrderPath;
+      } else {
+        alert('กรุณาเลือกเครื่องดื่มก่อนยืนยันการสั่งซื้อ');
+      }
+      }
+
+      window.onclick = function(event) {
+      const modals = document.getElementsByClassName('modal');
+      for (let modal of modals) {
+        if (event.target === modal) {
+        closeModal(modal.id);
+        }
+      }
+      };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

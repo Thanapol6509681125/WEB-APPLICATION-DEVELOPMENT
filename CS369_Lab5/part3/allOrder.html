@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>ยืนยันการสั่งซื้อ - ร้านขายเครื่องดื่ม บร.2</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #f5f1eb;
+        }
+        
+        .order-container {
+            background: #fff;
+            padding: 30px;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+            max-width: 800px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            margin: 10px 0;
+            background: #fff9f2;
+            border: 1px solid #DEB887;
+            border-radius: 8px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: #8B4513;
+            color: white;
+            cursor: pointer;
+        }
+
+        .back-btn {
+            background: #8B4513;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .back-btn:hover {
+            background: #654321;
+            color: white;
+            text-decoration: none;
+        }
+
+        .total-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #DEB887;
+            text-align: right;
+        }
+
+        .btn-confirm {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+
+        .btn-confirm:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <a href="p3.html" class="back-btn">← กลับไปหน้าหลัก</a>
+    
+    <div class="order-container">
+        <h2 class="text-center mb-4">ยืนยันการสั่งซื้อ</h2>
+        <div id="orderList"></div>
+        <div class="total-section">
+            <h4 class="mb-3">ยอดรวมทั้งหมด: <span id="totalAmount">0</span> บาท</h4>
+            <button onclick="confirmOrder()" class="btn-confirm">ยืนยันการสั่งซื้อ</button>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const orders = JSON.parse(localStorage.getItem('pendingOrders') || '[]');
+            displayOrders(orders);
+        };
+
+        function displayOrders(orders) {
+            const orderList = document.getElementById('orderList');
+            let total = 0;
+
+            if (orders.length === 0) {
+                orderList.innerHTML = '<p class="text-center">ไม่มีรายการสั่งซื้อ</p>';
+                return;
+            }
+
+            orderList.innerHTML = orders.map(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                return `
+                    <div class="order-item">
+                        <div>
+                            <h5>${item.name}</h5>
+                            <p class="mb-0">
+                                ${translateTemp(item.temperature)} • 
+                                ความหวาน ${item.sweetness}% • 
+                                จำนวน ${item.quantity} แก้ว
+                            </p>
+                        </div>
+                        <div class="text-end">
+                            <div class="quantity-control mb-2">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.name}', '${item.sweetness}', '${item.temperature}', -1)">-</button>
+                                <span class="mx-2">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity('${item.name}', '${item.sweetness}', '${item.temperature}', 1)">+</button>
+                            </div>
+                            <strong>${itemTotal} บาท</strong>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('totalAmount').textContent = total;
+        }
+
+        function updateQuantity(name, sweetness, temperature, change) {
+            const orders = JSON.parse(localStorage.getItem('pendingOrders'));
+            const item = orders.find(item => 
+                item.name === name && 
+                String(item.sweetness) === String(sweetness) && 
+                item.temperature === temperature
+            );
+
+            if (item) {
+                item.quantity = Math.max(0, item.quantity + change);
+                if (item.quantity === 0) {
+                    const newOrders = orders.filter(i => i !== item);
+                    localStorage.setItem('pendingOrders', JSON.stringify(newOrders));
+                    displayOrders(newOrders);
+                } else {
+                    localStorage.setItem('pendingOrders', JSON.stringify(orders));
+                    displayOrders(orders);
+                }
+            }
+        }
+
+        function confirmOrder() {
+            const orders = JSON.parse(localStorage.getItem('pendingOrders') || '[]');
+            if (orders.length === 0) {
+                alert('ไม่มีรายการสั่งซื้อ');
+                return;
+            }
+
+            const existingOrders = JSON.parse(localStorage.getItem('confirmedOrders') || '[]');
+            existingOrders.push({
+                timestamp: new Date().toISOString(),
+                items: orders
+            });
+            
+            localStorage.setItem('confirmedOrders', JSON.stringify(existingOrders));
+            localStorage.removeItem('pendingOrders');
+            alert('ขอบคุณสำหรับการสั่งซื้อ!');
+            window.location.href = 'p3.html';
+        }
+
+        function translateTemp(temp) {
+            const translations = {
+                'hot': 'ร้อน',
+                'cold': 'เย็น',
+                'frappe': 'ปั่น'
+            };
+            return translations[temp] || temp;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Degree Admission</title>
+    <link href="https://fonts.googleapis.com/css2?family=TH+Sarabun+PSK&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'TH Sarabun PSK', sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        h3 {
+            background-color: #002366;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        form {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+        .form-row label {
+            flex: 1;
+        }
+        .form-row input, .form-row select, .form-group textarea {
+            flex: 2;
+            padding: 5px;
+            width: 100%;
+        }
+        input, select, textarea {
+            display: block;
+            padding: 5px;
+        }
+        input[type="submit"] {
+            width: 100px;
+            height: 40px;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #fe7d5a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        input[type="submit"]:hover {
+            background-color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>ใบสมัครเข้าศึกษา ระดับบัณฑิตศึกษา</h1>
+    <h2>คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยธรรมศาสตร์</h2>
+    
+    <form id="admissionForm">
+        <h3>ประวัติส่วนตัว</h3>
+        <div class="form-group">
+            <label for="department">สมัครสาขาวิชา</label>
+            <select id="department" name="department" style="width: 800px; font-size: larger; margin-top: 5px;" required>
+                <option value="CS">สาขาวิชาวิทยาการคอมพิวเตอร์</option>
+                <option value="MathStat">สาขาวิชาคณิตศาสตร์และสถิติ</option>
+                <option value="Food">สาขาวิชาวิทยาการอาหาร</option>
+                <option value="Farm">สาขาวิชาวิทยาการการเกษตร</option>
+                <option value="Chemistry">สาขาวิชาเคมี</option>
+                <option value="Physics">สาขาวิชาฟิสิกส์และฟิสิกส์อิเล็กทรอนิกส์</option>
+            </select>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label for="name" style="margin-right: 20px;">ชื่อ</label>
+            
+            <select id="prefix" name="prefix" style="width: 80px; font-size: larger; margin-top: 5px; margin-right: 20px;" required>
+                <option value="Mister">นาย</option>
+                <option value="Miss">นางสาว</option>
+                <option value="Missis">นาง</option>
+            </select>
+        
+            <label for="name-th" style="margin-right: 20px;">ชื่อ (ภาษาไทย)</label>
+            <input type="text" id="name-th" name="name-th" style="margin-right: 20px;" required>
+            
+            <label for="surname-th" style="margin-right: 20px;">นามสกุล (ภาษาไทย)</label>
+            <input type="text" id="surname-th" name="surname-th"  required>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label for="name" style="margin-right: 20px;">ชื่อ</label>
+            <select id="prefix" name="prefix" style="width: 80px; font-size: larger; margin-top: 5px; margin-right: 20px;" required>
+                <option value="Mister">Mister</option>
+                <option value="Miss">Miss</option>
+                <option value="Missis">Missis</option>
+            </select>
+            <label for="name-en" >ชื่อ (ภาษาอังกฤษ)</label>
+            <input type="text" id="name-en" name="name-en" style="margin-right: 20px;" required>
+            <label for="surname-en" >นามสกุล (ภาษาอังกฤษ)</label>
+            <input type="text" id="surname-en" name="surname-en" required>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label for="gender" style="margin-right: 11px;">เพศ</label>
+            <select id="gender" name="gender" style="width: 80px; font-size: larger; margin-top: 5px; margin-right: 20px;" required>
+                <option value="male">ชาย</option>
+                <option value="female">หญิง</option>
+                <option value="other">อื่นๆ</option>
+            </select>
+            <label for="id-card" style="margin-right: 6px;">เลขบัตรประชาชน</label>
+            <input type="number" id="id-card" name="id-card" pattern = "\d{13}" style="margin-right: 20px;" required>
+            <label for="age" style="margin-right: 10px;">อายุ</label>
+            <input type="number" id="age" name="age" style="margin-right: 20px; width: 50px;" required>
+            <label for="marital-status" style="margin-right: 20px;">สถานภาพสมรส</label>
+            <select id="marital-status" name="marital-status" style="width: 100px; font-size: larger; margin-top: 5px;" required>
+                <option value="single">โสด</option>
+                <option value="married">แต่งงานแล้ว</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="address">ที่อยู่ที่สามารถติดต่อได้</label>
+            <input type="text" id="address" name="address" style="margin-top: 5px; width: 780px;" required>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label for="phone" style="margin-right: 20px;">โทรศัพท์</label>
+            <input type="tel" id="phone" name="phone" patter="[0-9]{10}" style="margin-right: 20px; width: 280px;" required>
+            <label for="email" style="margin-right: 20px;">อีเมล</label>
+            <input type="email" id="email" name="email" style="margin-right: 20px; width: 280px;" required>
+        </div>
+        
+        <h3>ประวัติการศึกษา</h3>
+        <div class="form-group">
+            <label for="edu-status">สถานภาพการศึกษา</label>
+            <select id="edu-status" name="edu-status" style="width: 800px; font-size: larger; margin-top: 5px;" required>
+                <option value="graduated">สำเร็จการศึกษาแล้ว</option>
+                <option value="studying">กำลังศึกษา</option>
+            </select>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label for="degree" style="margin-right: 10px;">วุฒิการศึกษา</label>
+            <select id="degree" name="degree" style="width: 100px; font-size: larger; margin-top: 5px; margin-right: 20px;" required>
+                <option value="bachelor">ปริญญาตรี</option>
+                <option value="master">ปริญญาโท</option>
+                <option value="doctor">ปริญญาเอก</option>
+            </select>
+            <label for="institution" style="margin-right: 10px;">สถานศึกษา</label>
+            <input type="text" id="institution" name="institution" style="width: 480px;" required>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label for="faculty" style="margin-right: 40px;">คณะ</label>
+            <input type="text" id="faculty" name="faculty" style="width: 710px;" required>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label for="department" style="margin-right: 10px;">สาขาวิชา</label>
+            <input type="text" id="department" name="department" style="width: 710px;" required>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label for="gpa" style="margin-right: 10px;">คะแนนเฉลี่ยสะสม</label>
+            <input type="number" id="gpa" name="gpa" step = "0.01" style="width: 653px;" required>
+        </div>
+        
+        <h3>ประวัติการทำงาน</h3>
+        <div class="form-group"></div>
+            <label for="work-status" style="margin-right: 10px;">สถานะการทำงาน</label>
+            <select id="work-status" name="work-status" style="width: 800px; font-size: larger; margin-top: 5px;" required>
+                <option value="nodo">ไม่ได้ทำงาน</option>
+                <option value="ever">เคยทำงานแต่ลาออก</option>
+                <option value="doing">กำลังทำงาน</option>
+            </select>
+        </div>
+        <div class="form-group" style="display: flex; margin-top: 10px;">
+            <label for="job-title" style="margin-right: 20px;">ตำแหน่งงาน</label>
+            <input type="text" id="job-title" name="job-title" style="margin-right: 20px; width: 250px;">
+            <label for="workplace" style="margin-right: 20px;">สถานที่ทำงาน</label>
+            <input type="text" id="workplace" name="workplace" style=" width: 250px;">
+        </div>
+        
+        <h3>การทดสอบภาษาอังกฤษ</h3>
+        <div class="form-group">
+            <label for="test-type" style="margin-right: 10px;">ประเภทการสอบ</label>
+            <select id="test-type" name="test-type" style="width: 800px; font-size: larger; margin-top: 5px;" required>
+                <option value="tu-get">TU-GET</option>
+                <option value="toefl">TOEFL</option>
+                <option value="ielts">IELTS</option>
+            </select>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label for="test-score" style="margin-right: 20px;">คะแนน</label>
+            <input type="number" id="test-score" name="test-score" style="margin-right: 20px; width: 250px;" required>
+            <label for="date-test-score" style="margin-right: 20px;">สอบเมื่อวนที่</label>
+            <input type="date" id="date-test-score" name="date-test-score" style=" width: 80px;" required>
+        </div>
+        <input id ="submit" type="submit" value="ยืนยัน" style="display: block; margin: auto; margin-top: 30px;">
+    </form>
+    <script>
+        document.getElementById('admissionForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formElements = event.target.elements;
+        let valid = true;
+        const elementsToReplace = []; // Array เก็บ element ที่จะต้องถูกแทนที่
+
+        for (let i = 0; i < formElements.length; i++) {
+            const element = formElements[i];
+
+            if (element.name && element.type !== 'submit') {
+            // ตรวจสอบว่ากรอกข้อมูลครบไหม
+                const idcard=document.getElementById('id-card');
+                const telephone = document.getElementById('phone');
+                const gpa =document.getElementById('gpa');
+                const exam = document.getElementById('test-type');
+                const score = document.getElementById('test-score');
+
+                const examValue = exam.value.toLowerCase();
+                const scoreValue = Number(score.value);
+                
+                
+            
+            if (element.required && !element.value.trim()) {
+                valid = false;
+                alert(`กรุณากรอกข้อมูลในช่อง "${element.labels[0].innerText}"`);
+                break;
+            }
+
+            if (idcard.value.trim().length !== 13) {
+                valid = false;
+                alert('กรุณากรอกชื่อเลขบัตรประชาชนให้ถูกต้อง (13หลัก)');
+                break;
+            }
+
+            if (phone.value.trim().length !==10){
+                valid = false;
+                alert('กรุณากรอกหมายเลขโทรศัพท์ให้ถูกต้อง (10หลัก)')
+                break;
+            }
+            if (parseFloat(gpa.value.trim()) >4 || parseFloat(gpa.value.trim())<0){
+                valid = false;
+                alert('กรุณากรอกคะแนนเฉลี่ยสะสมให้ถูกต้อง (0.00 - 4.00 )')
+                break;
+            }
+
+            console.log("Exam Type:", examValue, "Score:", scoreValue);
+
+            if (examValue === 'tu-get' && (scoreValue > 120 || scoreValue < 0)) {
+                valid = false;
+                alert('กรุณาตรวจสอบความถูกต้องของประเภทการสอบ หรือผลคะแนน TU-GET (0-120)');
+                break;
+            }
+            if (examValue === 'toefl' && (scoreValue > 677 || scoreValue < 0)) {
+                valid = false;
+                alert('กรุณาตรวจสอบความถูกต้องของประเภทการสอบ หรือผลคะแนน TOEFL (0-677)');
+                break;
+            }
+            if (examValue === 'ielts' && (scoreValue > 9 || scoreValue < 0)) {
+                valid = false;
+                alert('กรุณาตรวจสอบความถูกต้องของประเภทการสอบ หรือผลคะแนน IELTS (0-9)');
+                break;
+            }
+            
+            if (valid) {
+                let displayValue = element.value;
+
+                if (element.tagName === 'SELECT') {
+                    displayValue = element.options[element.selectedIndex].text;
+                }
+
+                // สร้าง <span> หรือ <p> เพื่อแสดงข้อมูลแทน
+                const textNode = document.createElement('span');
+                textNode.innerText = displayValue;
+                textNode.style.padding = '5px';
+                textNode.style.borderRadius = "15px";
+                textNode.style.border = "1px solid";
+                textNode.style.display='inline-block';
+                textNode.style.marginTop='-5px';
+                // เก็บ element ที่จะต้องถูกแทนที่
+                elementsToReplace.push({ element, textNode });
+            }
+        }
+    }
+
+    // หลังจากตรวจสอบครบทุก element แล้วให้แทนที่
+    if (valid) {
+        elementsToReplace.forEach(({ element, textNode }) => {
+            element.replaceWith(textNode);
+        });
+    }
+
+    if (submitButton) {
+            submitButton.style.display = 'none';
+        }
+    
+});
+    </script>    
+</body>
+</html>
