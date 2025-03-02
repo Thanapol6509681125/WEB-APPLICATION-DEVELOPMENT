@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Movies List</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script type="text/babel">
+        const movieList = [
+            { title: 'Pee Mak', director: 'Banjong Pisanthanakun', year: 2013, genre: 'Comedy, Horror' },
+            { title: 'Bad Genius', director: 'Nattawut Poonpiriya', year: 2017, genre: 'Thriller' },
+            { title: 'Ong-Bak: Muay Thai Warrior', director: 'Prachya Pinkaew', year: 2003, genre: 'Action' },
+            { title: 'The Love of Siam', director: 'Chookiat Sakveerakul', year: 2007, genre: 'Romance, Drama' }
+        ];
+
+        const MovieList = () => {
+            return (
+                <div>
+                    <h1>List of Thai Movies</h1>
+                    <ul>
+                        {movieList.map((movie, index) => (
+                            <li key={index}>
+                                <strong>Title: </strong>{movie.title}<br />
+                                <strong>Director: </strong>{movie.director}<br />
+                                <strong>Release Year: </strong>{movie.year}<br />
+                                <strong>Genre: </strong>{movie.genre}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        };
+
+        const Footer = () => {
+            return (
+                <h1 className="footer" style={{ color: "green", fontStyle: "italic" }}>
+                    มีภาพยนตร์ในรายการทั้งหมด {movieList.length} เรื่อง
+                </h1>
+            );
+        };
+
+        const App = () => {
+            return (
+                <div>
+                    <MovieList />
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = document.getElementById('root');
+        const footerRoot = document.getElementById('footer-div');
+
+        ReactDOM.createRoot(root).render(<App />);
+        ReactDOM.createRoot(footerRoot).render(<Footer />);
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+    <div id="footer-div"></div>
+</body>
+</html>

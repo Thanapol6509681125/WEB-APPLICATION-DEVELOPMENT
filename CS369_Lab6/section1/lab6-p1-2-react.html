@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Movies List</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <div id="footer-div"></div>
+    <script>
+        const movieList = [
+            { title: 'Pee Mak', director: 'Banjong Pisanthanakun', year: 2013, genre: 'Comedy, Horror' },
+            { title: 'Bad Genius', director: 'Nattawut Poonpiriya', year: 2017, genre: 'Thriller' },
+            { title: 'Ong-Bak: Muay Thai Warrior', director: 'Prachya Pinkaew', year: 2003, genre: 'Action' },
+            { title: 'The Love of Siam', director: 'Chookiat Sakveerakul', year: 2007, genre: 'Romance, Drama' }
+        ];
+
+        // Create root for div id "root"
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+
+        // Create list for movie list
+        const movies = movieList.map((movie, index) => 
+            React.createElement("li", { key: index },
+                React.createElement("strong", null, "Title: "), movie.title, React.createElement("br"),
+                React.createElement("strong", null, "Director: "), movie.director, React.createElement("br"),
+                React.createElement("strong", null, "Release Year: "), movie.year, React.createElement("br"),
+                React.createElement("strong", null, "Genre: "), movie.genre
+            )
+        );
+
+        // For header and create unordered list
+        const app = React.createElement("div", null, 
+            React.createElement("h1", null, "List of Thai Movies"),
+            React.createElement("ul", null, movies)
+        )
+
+        root.render(app);
+
+        // Create root for div id "footer-div"
+        const footerRoot = ReactDOM.createRoot(document.getElementById("footer-div"));
+        const footer = React.createElement("h1", {
+            className: "footer",
+            style: {
+                color: "green", fontStyle: "italic"
+            }
+        }, `มีภาพยนตร์ในรายการทั้งหมด ${movieList.length} เรื่อง`)
+
+        footerRoot.render(footer);
+    </script>
+</body>
+</html>
